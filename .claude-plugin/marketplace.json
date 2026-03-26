@@ -1,0 +1,19 @@
+{
+  "name": "sslb-marketplace",
+  "owner": {
+    "name": "XuJiaKai",
+    "url": "https://github.com/xjk2000"
+  },
+  "plugins": [
+    {
+      "name": "sslb",
+      "source": "./",
+      "description": "三省六部 — 基于唐代官制的 16 Agent 协作治理系统，用于 Claude Code 项目管理和代码质量治理",
+      "version": "1.0.0",
+      "author": {
+        "name": "XuJiaKai"
+      },
+      "tags": ["governance", "agent-teams", "project-management"]
+    }
+  ]
+}

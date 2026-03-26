@@ -1,0 +1,18 @@
+{
+  "name": "sslb",
+  "version": "1.0.0",
+  "description": "三省六部 — 基于唐代官制的 16 Agent 协作治理系统，用于 Claude Code 项目管理和代码质量治理",
+  "author": {
+    "name": "XuJiaKai",
+    "url": "https://github.com/xjk2000"
+  },
+  "repository": "https://github.com/xjk2000/claudecode-sslb",
+  "license": "MIT",
+  "keywords": [
+    "governance",
+    "agent-teams",
+    "project-management",
+    "code-quality",
+    "three-departments-six-ministries"
+  ]
+}

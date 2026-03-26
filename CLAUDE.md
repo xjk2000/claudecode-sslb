@@ -4,7 +4,7 @@
 
 ## ⚠️ 治理铁律（贯穿整个会话）
 
-1. **先读政事堂** — 每次收到用户指令，首先读取 `docs/huangdi/zhengshitang/`，恢复上下文
+1. **先读政事堂** — 每次收到用户指令，首先读取 `docs/huangdi/政事堂/`，恢复上下文
 2. **敕令即合约** — 所有任务必须以敕令形式流转，无敕令不执行
 3. **三省制衡** — 决策→审核→执行，不可跳过任何一省
 4. **过程留痕** — 每个关键节点必须在政事堂敕令文件中留下记录
@@ -15,33 +15,28 @@
 
 ## 安装
 
-### 全局安装（推荐）
-
 ```bash
-git clone https://github.com/xjk2000/claudecode-sslb.git
-cd claudecode-sslb
-bash install.sh       # 安装到 ~/.claude/
-# bash uninstall.sh   # 卸载
+claude plugin install sslb
 ```
 
-### 单项目安装
+安装完成后，使用 `@中书令` 调用 Agent，`/new-edict` 使用 Slash Command。
 
-```bash
-cp -r claudecode-sslb/claude/ your-project/.claude/
-```
+首次在项目中使用时，**SessionStart hook 会自动在项目根目录创建** `docs/huangdi/` 目录结构。
 
-安装完成后，使用 `@agent名` 调用 Agent，`/命令名` 使用 Slash Command。
+卸载：`claude plugin uninstall sslb`
 
-## 项目结构
+## Plugin 结构
 
 ```
-.claude/                         # Claude Code 自动加载
-├── agents/                      # 16个Agent
+claudecode-sslb/
+├── .claude-plugin/
+│   └── plugin.json              # Plugin 清单
+├── agents/                      # 16个Agent（@中文名 调用）
 │   ├── zhongshuling.md          # 中书令 - 首席决策官
 │   ├── zhongshushe.md           # 中书舍人 - 记录秘书
 │   ├── shizhong.md              # 侍中 - 首席审核官
 │   ├── jishi.md                 # 给事中 - 细节审核官
-│   ├── shangshuling.md          # 尚书令 - 首席调度官（判断Agent协作）
+│   ├── shangshuling.md          # 尚书令 - 首席调度官
 │   ├── libu_hr.md               # 吏部 - 人力资源管理
 │   ├── hubu.md                  # 户部 - 数据处理分析
 │   ├── libu_docs.md             # 礼部 - 文档管理
@@ -53,36 +48,47 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
 │   ├── junqi_jian.md            # 军器监 - 安全相关
 │   ├── dushui_jian.md           # 都水监 - 数据处理
 │   └── guozi_jian.md            # 国子监 - 框架架构
-├── commands/                    # Slash Commands
+├── commands/                    # Slash Commands（/命令名 调用）
 │   ├── new-edict.md             # /new-edict - 创建新敕令
 │   ├── debug.md                 # /debug - 启动调试
 │   ├── review.md                # /review - 启动审查
 │   └── tdd.md                   # /tdd - 启动TDD
 ├── skills/                      # 三省六部独有Skills
-│   ├── sslb-using-sslb.md       # 使用指南（含治理铁律）
-│   ├── sslb-huangdi-docs.md     # 过程记录规范
-│   ├── sslb-edict-decompose.md  # 敕令拆解
-│   ├── sslb-fengbo-review.md    # 封驳审议
-│   └── sslb-dahui-dispatch.md   # 打回派发
-├── docs/huangdi/                # 过程记录中心
-│   ├── zhengshitang/            # 政事堂 — 当前活跃敕令
-│   ├── mishusheng/              # 秘书省 — 历史敕令原件
-│   ├── hongwenguan/             # 弘文馆 — 敕令总结库
-│   ├── kaogongsi/               # 考功司 — 吏部
-│   ├── jizhangku/               # 籍账库 — 户部
-│   ├── zhifangsi/               # 职方司 — 兵部
-│   ├── duguansi/                # 都官司 — 刑部
-│   ├── libujingshe/             # 礼部精舍 — 礼部
-│   ├── yingshansi/              # 营缮司 — 工部
-│   ├── jiangzuotupuku/          # 将作图谱库 — 将作监
-│   ├── baigongshu/              # 百工署 — 少府监
-│   ├── jianufangshu/            # 甲弩坊署 — 军器监
-│   ├── hequshuku/               # 河渠书库 — 都水监
-│   ├── jingjiku/                # 经籍库 — 国子监
-│   └── TEMPLATE-edict.md        # 敕令模板
-└── tools/                       # CLI 工具
-    ├── edict-manager.sh         # 敕令管理
-    └── task-router.sh           # 任务路由
+│   ├── sslb-using-sslb/SKILL.md       # 使用指南（含治理铁律）
+│   ├── sslb-huangdi-docs/SKILL.md     # 过程记录规范
+│   ├── sslb-edict-decompose/SKILL.md  # 敕令拆解
+│   ├── sslb-fengbo-review/SKILL.md    # 封驳审议
+│   └── sslb-dahui-dispatch/SKILL.md   # 打回派发
+├── hooks/
+│   └── hooks.json               # SessionStart hook（自动初始化项目）
+├── scripts/                     # 工具脚本
+│   ├── init-project.sh          # 项目初始化（hook 调用）
+│   ├── edict-manager.sh         # 敕令管理
+│   └── task-router.sh           # 任务路由
+└── templates/
+    └── huangdi/                 # 敕令模板文件
+        ├── README.md
+        └── TEMPLATE-edict.md
+```
+
+### 项目级过程记录（自动创建于项目根目录）
+
+```
+<项目>/docs/huangdi/
+├── 政事堂/                当前活跃敕令
+├── 秘书省/                历史敕令原件
+├── 弘文馆/                敕令总结库
+├── 考功司/                吏部文档库
+├── 籍账库/                户部文档库
+├── 职方司/                兵部文档库
+├── 都官司/                刑部文档库
+├── 礼部精舍/              礼部文档库
+├── 营缮司/                工部文档库
+├── 将作图谱库/            将作监文档库
+├── 百工署/                少府监文档库
+├── 甲弩坊署/              军器监文档库
+├── 河渠书库/              都水监文档库
+└── 经籍库/                国子监文档库
 ```
 
 ## 使用方式
@@ -197,8 +203,8 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
 
 ### 4. 过程记录（政事堂 / 弘文馆）
 **所有敕令的生命周期都记录在 `docs/huangdi/` 中。**
-- `zhengshitang/` — 政事堂：当前活跃敕令，每次会话启动时先读取此目录恢复上下文
-- `hongwenguan/` — 弘文馆：已完成敕令归档，作为知识库供后续参考
+- `政事堂/` — 当前活跃敕令，每次会话启动时先读取此目录恢复上下文
+- `弘文馆/` — 已完成敕令归档，作为知识库供后续参考
 - 防止治理漂移：Agent 通过读取政事堂重新锚定自己的角色和当前任务状态
 
 ## 作者

@@ -4,30 +4,21 @@
 
 ## 快速开始
 
-### 方式一：全局安装到 ~/.claude/（推荐）
+### 安装（Claude Code Plugin）
 
 ```bash
-git clone https://github.com/xjk2000/claudecode-sslb.git
-cd claudecode-sslb
-bash install.sh
+claude plugin install sslb
 ```
 
-全局安装后，所有项目都可以使用三省六部 Agent。
+安装完成后，所有项目都可以使用三省六部 Agent。首次在项目中使用时，SessionStart hook 会自动创建 `docs/huangdi/` 目录结构。
 
-卸载：`bash uninstall.sh`
-
-### 方式二：安装到单个项目
-
-```bash
-git clone https://github.com/xjk2000/claudecode-sslb.git
-cp -r claudecode-sslb/claude/ your-project/.claude/
-```
+卸载：`claude plugin uninstall sslb`
 
 ### 验证安装
 
 在你的项目目录中打开 Claude Code，输入：
 ```
-@zhongshuling 你好
+@中书令 你好
 ```
 如果中书令回应，说明安装成功。
 
@@ -172,9 +163,9 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
 
 ```
 docs/huangdi/
-├── zhengshitang/   # 政事堂 — 当前活跃敕令（进行中）
-├── hongwenguan/    # 弘文馆 — 历史归档（已完成）
-└── TEMPLATE-edict.md  # 敕令模板
+├── 政事堂/       当前活跃敕令（进行中）
+├── 弘文馆/       历史归档（已完成）
+└── TEMPLATE-edict.md  敕令模板
 ```
 
 - **政事堂**：每个敕令一个文件，记录从创建到验收的全过程（需求探索、审议、执行计划、打回、验收）
@@ -196,30 +187,28 @@ docs/huangdi/
 → 协作Agent: 户部(性能分析) + 都水监(SQL优化) + 兵部(性能测试) + 工部(review)
 ```
 
-## 目录结构
+## Plugin 目录结构
 
 ```
-.claude/                         # Claude Code 自动加载
-├── agents/                      # 16个Agent（@名称调用）
-├── commands/                    # 4个Slash Commands（/命令名调用）
-├── skills/                      # 5个三省六部独有Skill
-├── docs/huangdi/                # 过程记录中心
-│   ├── zhengshitang/            # 政事堂 — 当前活跃敕令
-│   ├── mishusheng/              # 秘书省 — 历史敕令原件
-│   ├── hongwenguan/             # 弘文馆 — 敕令总结库
-│   ├── kaogongsi/               # 考功司 — 吏部文档库
-│   ├── jizhangku/               # 籍账库 — 户部文档库
-│   ├── zhifangsi/               # 职方司 — 兵部文档库
-│   ├── duguansi/                # 都官司 — 刑部文档库
-│   ├── libujingshe/             # 礼部精舍 — 礼部文档库
-│   ├── yingshansi/              # 营缮司 — 工部文档库
-│   ├── jiangzuotupuku/          # 将作图谱库 — 将作监文档库
-│   ├── baigongshu/              # 百工署 — 少府监文档库
-│   ├── jianufangshu/            # 甲弩坊署 — 军器监文档库
-│   ├── hequshuku/               # 河渠书库 — 都水监文档库
-│   ├── jingjiku/                # 经籍库 — 国子监文档库
-│   └── TEMPLATE-edict.md        # 敕令模板
-└── tools/                       # 2个CLI工具
+claudecode-sslb/                 # Plugin 根目录
+├── .claude-plugin/plugin.json   # Plugin 清单
+├── agents/                      # 16个Agent（@中文名 调用）
+├── commands/                    # 4个Slash Commands
+├── skills/                      # 5个Skills（<name>/SKILL.md 格式）
+├── hooks/hooks.json             # SessionStart hook（项目自动初始化）
+├── scripts/                     # 工具脚本
+└── templates/huangdi/           # 敕令模板文件
+```
+
+### 项目级过程记录（SessionStart hook 自动创建）
+
+```
+<项目>/docs/huangdi/
+├── 政事堂/                当前活跃敕令
+├── 秘书省/                历史敕令原件
+├── 弘文馆/                敕令总结库
+├── 考功司/ ~ 经籍库/       六部+五监文档库（共11个）
+└── TEMPLATE-edict.md        敕令模板
 ```
 
 
