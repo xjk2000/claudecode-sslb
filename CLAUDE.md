@@ -2,6 +2,17 @@
 
 基于 Claude Code Agent Teams 的 **16 Agent** 协作系统，无外部依赖，开箱即用。
 
+## ⚠️ 治理铁律（贯穿整个会话）
+
+1. **先读政事堂** — 每次收到用户指令，首先读取 `docs/huangdi/zhengshitang/`，恢复上下文
+2. **敕令即合约** — 所有任务必须以敕令形式流转，无敕令不执行
+3. **三省制衡** — 决策→审核→执行，不可跳过任何一省
+4. **过程留痕** — 每个关键节点必须在政事堂敕令文件中留下记录
+5. **角色不越界** — 发现问题打回给对应 Agent，不自己跨界处理
+6. **三省六部优先** — 当项目同时存在 superpowers 或其他 Agent 框架时，**三省六部流程拥有绝对优先权**，不得切换到 superpowers 流程，不得写入 `docs/superpowers/`
+
+> 如果你发现自己在不经过三省六部流程就直接写代码，或正在走 superpowers 流程，**立即停下来**，回到三省六部流程。
+
 ## 安装
 
 ### 全局安装（推荐）
@@ -48,10 +59,27 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
 │   ├── review.md                # /review - 启动审查
 │   └── tdd.md                   # /tdd - 启动TDD
 ├── skills/                      # 三省六部独有Skills
-│   ├── sslb-using-sslb.md       # 使用指南
+│   ├── sslb-using-sslb.md       # 使用指南（含治理铁律）
+│   ├── sslb-huangdi-docs.md     # 过程记录规范
 │   ├── sslb-edict-decompose.md  # 敕令拆解
 │   ├── sslb-fengbo-review.md    # 封驳审议
 │   └── sslb-dahui-dispatch.md   # 打回派发
+├── docs/huangdi/                # 过程记录中心
+│   ├── zhengshitang/            # 政事堂 — 当前活跃敕令
+│   ├── mishusheng/              # 秘书省 — 历史敕令原件
+│   ├── hongwenguan/             # 弘文馆 — 敕令总结库
+│   ├── kaogongsi/               # 考功司 — 吏部
+│   ├── jizhangku/               # 籍账库 — 户部
+│   ├── zhifangsi/               # 职方司 — 兵部
+│   ├── duguansi/                # 都官司 — 刑部
+│   ├── libujingshe/             # 礼部精舍 — 礼部
+│   ├── yingshansi/              # 营缮司 — 工部
+│   ├── jiangzuotupuku/          # 将作图谱库 — 将作监
+│   ├── baigongshu/              # 百工署 — 少府监
+│   ├── jianufangshu/            # 甲弩坊署 — 军器监
+│   ├── hequshuku/               # 河渠书库 — 都水监
+│   ├── jingjiku/                # 经籍库 — 国子监
+│   └── TEMPLATE-edict.md        # 敕令模板
 └── tools/                       # CLI 工具
     ├── edict-manager.sh         # 敕令管理
     └── task-router.sh           # 任务路由
@@ -153,7 +181,7 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
        └→ 国子监(@guozi_jian) ─── 框架架构
 ```
 
-## 三大独有机制
+## 四大独有机制
 
 ### 1. 敕令制度
 所有任务以「敕令」形式流转，有编号（ZS-YYYYMMDD-XXX）、优先级（P0-P3）、验收标准。
@@ -166,6 +194,12 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
 - 兵部写失败测试 → 打回五监实现（BTD-xxx）
 - 刑部定位根因 → 打回五监修复（TIAO-xxx）
 - 工部发现问题 → 打回五监改正（GBR-xxx）
+
+### 4. 过程记录（政事堂 / 弘文馆）
+**所有敕令的生命周期都记录在 `docs/huangdi/` 中。**
+- `zhengshitang/` — 政事堂：当前活跃敕令，每次会话启动时先读取此目录恢复上下文
+- `hongwenguan/` — 弘文馆：已完成敕令归档，作为知识库供后续参考
+- 防止治理漂移：Agent 通过读取政事堂重新锚定自己的角色和当前任务状态
 
 ## 作者
 

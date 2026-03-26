@@ -10,6 +10,8 @@ set -euo pipefail
 
 # 配置
 EDICT_DIR="${EDICT_DIR:-$(pwd)/docs/edicts}"
+HUANGDI_DIR="$(pwd)/docs/huangdi"
+TEMPLATE_DIR="${HOME}/.claude/docs/huangdi"
 DATE_PREFIX=$(date +%Y%m%d)
 
 # 确保目录存在
@@ -17,6 +19,64 @@ mkdir -p "$EDICT_DIR"
 mkdir -p "$EDICT_DIR/active"
 mkdir -p "$EDICT_DIR/completed"
 mkdir -p "$EDICT_DIR/rejected"
+
+# 初始化项目级 docs/huangdi/ 目录结构
+cmd_init() {
+    if [ -d "$HUANGDI_DIR/zhengshitang" ]; then
+        echo "docs/huangdi/ 目录结构已存在，跳过初始化。"
+        return
+    fi
+
+    echo "正在创建 docs/huangdi/ 目录结构..."
+
+    # 三省中枢
+    mkdir -p "$HUANGDI_DIR/zhengshitang"
+    mkdir -p "$HUANGDI_DIR/mishusheng"
+    mkdir -p "$HUANGDI_DIR/hongwenguan"
+    # 六部文档库
+    mkdir -p "$HUANGDI_DIR/kaogongsi"
+    mkdir -p "$HUANGDI_DIR/jizhangku"
+    mkdir -p "$HUANGDI_DIR/zhifangsi"
+    mkdir -p "$HUANGDI_DIR/duguansi"
+    mkdir -p "$HUANGDI_DIR/libujingshe"
+    mkdir -p "$HUANGDI_DIR/yingshansi"
+    # 五监文档库
+    mkdir -p "$HUANGDI_DIR/jiangzuotupuku"
+    mkdir -p "$HUANGDI_DIR/baigongshu"
+    mkdir -p "$HUANGDI_DIR/jianufangshu"
+    mkdir -p "$HUANGDI_DIR/hequshuku"
+    mkdir -p "$HUANGDI_DIR/jingjiku"
+
+    # 复制模板文件（如果全局安装了模板）
+    if [ -d "$TEMPLATE_DIR" ]; then
+        for file in "$TEMPLATE_DIR"/*.md; do
+            [ -f "$file" ] || continue
+            filename=$(basename "$file")
+            if [ ! -f "$HUANGDI_DIR/$filename" ]; then
+                cp "$file" "$HUANGDI_DIR/$filename"
+            fi
+        done
+    fi
+
+    echo "✅ docs/huangdi/ 初始化完成！"
+    echo ""
+    echo "目录结构："
+    echo "  docs/huangdi/"
+    echo "  ├── zhengshitang/    政事堂（活跃敕令）"
+    echo "  ├── mishusheng/      秘书省（历史敕令原件）"
+    echo "  ├── hongwenguan/     弘文馆（敕令总结库）"
+    echo "  ├── kaogongsi/       考功司（吏部）"
+    echo "  ├── jizhangku/       籍账库（户部）"
+    echo "  ├── zhifangsi/       职方司（兵部）"
+    echo "  ├── duguansi/        都官司（刑部）"
+    echo "  ├── libujingshe/     礼部精舍（礼部）"
+    echo "  ├── yingshansi/      营缮司（工部）"
+    echo "  ├── jiangzuotupuku/  将作图谱库（将作监）"
+    echo "  ├── baigongshu/      百工署（少府监）"
+    echo "  ├── jianufangshu/    甲弩坊署（军器监）"
+    echo "  ├── hequshuku/       河渠书库（都水监）"
+    echo "  └── jingjiku/        经籍库（国子监）"
+}
 
 # 获取今日序号
 get_next_seq() {
@@ -205,6 +265,9 @@ cmd_get() {
 
 # 主路由
 case "${1:-help}" in
+    init)
+        cmd_init
+        ;;
     create)
         shift
         cmd_create "$@"
@@ -226,6 +289,9 @@ case "${1:-help}" in
 三省六部敕令管理工具
 
 用法:
+  edict-manager.sh init
+    在当前项目根目录初始化 docs/huangdi/ 目录结构（首次使用时执行）
+
   edict-manager.sh create <type> <priority> <title> <department>
     创建新敕令
     type: edict/feature/bugfix/refactor/review/docs/test-bounce/debug-bounce/review-bounce

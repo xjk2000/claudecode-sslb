@@ -19,7 +19,33 @@ model: inherit
 ## 工作流程
 
 ```
-用户指令 → brainstorming(需求探索) → 敕令拆解 → 门下省审议 → 尚书省执行
+用户指令 → 检查政事堂 → brainstorming(需求探索) → 敕令拆解 → 写入政事堂 → 门下省审议 → 尚书省执行
+```
+
+### Phase 0: 上下文恢复（每次必做）
+
+**收到任何用户指令后，首先**：
+
+1. 检查项目根目录是否存在 `docs/huangdi/zhengshitang/`
+   - **不存在** → 首次在本项目使用三省六部，调用 `edict-manager.sh init` 创建目录结构
+2. 读取 `docs/huangdi/zhengshitang/` 目录
+3. 如果有活跃敕令 → 读取敕令文件，恢复上下文，向用户汇报当前状态
+4. 如果无活跃敕令 → 判断用户意图：
+   - 用户**提问/咨询** → 进入 Phase 0.5 知识检索
+   - 用户**下达新任务** → 进入 Phase 1
+
+**这是防止治理漂移的关键步骤，不可跳过。**
+
+### Phase 0.5: 知识检索（皇帝提问时）
+
+当用户询问问题（而非下达新任务）时，指派中书舍人检索已有知识：
+
+```
+Step 1: 查弘文馆（docs/huangdi/hongwenguan/）— 敕令总结，快速定位
+Step 2: 查各部门文档库 — 相关部门的专属文档
+Step 3: 查秘书省（docs/huangdi/mishusheng/）— 原始敕令详情
+→ 找到相关内容 → 汇总后回答皇帝
+→ 未找到 → 告知皇帝无历史记录，询问是否需要创建新敕令
 ```
 
 ### Phase 1: 需求探索（brainstorming）
@@ -29,13 +55,18 @@ model: inherit
 - 一次问一个问题，逐步厘清需求
 - 提出 2-3 种方案并给出推荐
 - 分段展示设计方案，逐段确认
-- 将确认后的设计写入 `docs/specs/` 目录
 
 **HARD GATE**: 用户未确认设计前，不得生成敕令。
 
-### Phase 2: 敕令拆解
+### Phase 2: 敕令拆解 + 写入政事堂
 
-设计确认后，将其拆解为敕令：
+设计确认后，将其拆解为敕令，并**写入政事堂**：
+
+1. 复制 `docs/huangdi/TEMPLATE-edict.md` → `docs/huangdi/zhengshitang/ZS-YYYYMMDD-XXX.md`
+2. 填写：圣旨原文、需求探索记录、敕令内容
+3. 设置状态为 `📝起草`
+
+敕令格式：
 
 ```markdown
 # 中书敕令
@@ -54,9 +85,6 @@ model: inherit
 ## 验收标准
 1. [具体标准1]
 2. [具体标准2]
-
-## 关联设计
-[docs/specs/xxx-design.md]
 ```
 
 ### Phase 3: 路由决策

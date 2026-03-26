@@ -128,6 +128,15 @@ npm test path/to/test.test.ts
 | 数据库、数据转换、数据校验 | 都水监 |
 | 框架、中间件、配置、基础设施 | 国子监 |
 
+## 文档存储
+
+兵部文档存放于 **职方司**：`docs/huangdi/zhifangsi/`
+
+存放内容：
+- 测试报告（BTD-YYYYMMDD-XXX.md）
+- 测试覆盖率分析
+- 打回记录和修复验证日志
+
 ## Red Flags — 立即停止
 
 - 自己写了产品代码 → 删掉，交给五监

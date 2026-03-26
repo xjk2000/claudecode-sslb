@@ -143,7 +143,7 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
                                    中书令汇报
 ```
 
-## 三大独有机制
+## 四大独有机制
 
 ### 1. 敕令制度
 所有任务以「敕令」形式流转，有编号、优先级、验收标准。
@@ -167,6 +167,20 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
 | 刑部定位根因 | → 打回五监修复 |
 | 工部发现问题 | → 打回五监改正 |
 
+### 4. 过程记录（政事堂 / 弘文馆）
+所有敕令的完整生命周期记录在 `docs/huangdi/` 目录中：
+
+```
+docs/huangdi/
+├── zhengshitang/   # 政事堂 — 当前活跃敕令（进行中）
+├── hongwenguan/    # 弘文馆 — 历史归档（已完成）
+└── TEMPLATE-edict.md  # 敕令模板
+```
+
+- **政事堂**：每个敕令一个文件，记录从创建到验收的全过程（需求探索、审议、执行计划、打回、验收）
+- **弘文馆**：验收通过的敕令归档至此，作为知识库供后续参考
+- **防漂移**：每次会话启动时先读取政事堂，恢复上下文，防止 Agent 偏离三省六部流程
+
 ## 尚书令的 Agent 协作判断
 
 尚书令收到敕令后，**首先**分析需要哪些 Agent 参与。示例：
@@ -188,7 +202,23 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
 .claude/                         # Claude Code 自动加载
 ├── agents/                      # 16个Agent（@名称调用）
 ├── commands/                    # 4个Slash Commands（/命令名调用）
-├── skills/                      # 4个三省六部独有Skill
+├── skills/                      # 5个三省六部独有Skill
+├── docs/huangdi/                # 过程记录中心
+│   ├── zhengshitang/            # 政事堂 — 当前活跃敕令
+│   ├── mishusheng/              # 秘书省 — 历史敕令原件
+│   ├── hongwenguan/             # 弘文馆 — 敕令总结库
+│   ├── kaogongsi/               # 考功司 — 吏部文档库
+│   ├── jizhangku/               # 籍账库 — 户部文档库
+│   ├── zhifangsi/               # 职方司 — 兵部文档库
+│   ├── duguansi/                # 都官司 — 刑部文档库
+│   ├── libujingshe/             # 礼部精舍 — 礼部文档库
+│   ├── yingshansi/              # 营缮司 — 工部文档库
+│   ├── jiangzuotupuku/          # 将作图谱库 — 将作监文档库
+│   ├── baigongshu/              # 百工署 — 少府监文档库
+│   ├── jianufangshu/            # 甲弩坊署 — 军器监文档库
+│   ├── hequshuku/               # 河渠书库 — 都水监文档库
+│   ├── jingjiku/                # 经籍库 — 国子监文档库
+│   └── TEMPLATE-edict.md        # 敕令模板
 └── tools/                       # 2个CLI工具
 ```
 

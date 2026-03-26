@@ -51,8 +51,15 @@ SKILL_FILES=(
     "sslb-dahui-dispatch.md"
     "sslb-edict-decompose.md"
     "sslb-fengbo-review.md"
+    "sslb-huangdi-docs.md"
     "sslb-using-sslb.md"
 )
+
+DOCS_TEMPLATE_FILES=(
+    "README.md"
+    "TEMPLATE-edict.md"
+)
+DOCS_DIR="docs/huangdi"
 
 TOOL_FILES=(
     "edict-manager.sh"
@@ -79,6 +86,9 @@ done
 for f in "${TOOL_FILES[@]}"; do
     [ -f "${TARGET_DIR}/tools/${f}" ] && to_delete=$((to_delete + 1))
 done
+for f in "${DOCS_TEMPLATE_FILES[@]}"; do
+    [ -f "${TARGET_DIR}/${DOCS_DIR}/${f}" ] && to_delete=$((to_delete + 1))
+done
 
 if [ "$to_delete" -eq 0 ]; then
     info "未检测到三省六部安装的文件，无需卸载。"
@@ -100,6 +110,9 @@ for f in "${SKILL_FILES[@]}"; do
 done
 for f in "${TOOL_FILES[@]}"; do
     [ -f "${TARGET_DIR}/tools/${f}" ] && echo "  tools/${f}"
+done
+for f in "${DOCS_TEMPLATE_FILES[@]}"; do
+    [ -f "${TARGET_DIR}/${DOCS_DIR}/${f}" ] && echo "  ${DOCS_DIR}/${f}"
 done
 
 echo ""
@@ -135,9 +148,16 @@ for f in "${TOOL_FILES[@]}"; do
         deleted=$((deleted + 1))
     fi
 done
+for f in "${DOCS_TEMPLATE_FILES[@]}"; do
+    if [ -f "${TARGET_DIR}/${DOCS_DIR}/${f}" ]; then
+        rm "${TARGET_DIR}/${DOCS_DIR}/${f}"
+        deleted=$((deleted + 1))
+    fi
+done
 
 # 清理空目录（仅当目录为空时才删除）
-for dir in agents commands skills tools; do
+# 注意：工作目录（政事堂/秘书省/弘文馆/各部门文档库）在项目中，不在 ~/.claude/ 下
+for dir in "${DOCS_DIR}" agents commands skills tools; do
     if [ -d "${TARGET_DIR}/${dir}" ]; then
         if [ -z "$(ls -A "${TARGET_DIR}/${dir}" 2>/dev/null)" ]; then
             rmdir "${TARGET_DIR}/${dir}"

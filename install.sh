@@ -30,6 +30,7 @@ if [ ! -d "${SOURCE_DIR}" ]; then
 fi
 
 DIRS=("agents" "commands" "skills" "tools")
+DOCS_DIR="docs/huangdi"
 
 info "安装目标: ${TARGET_DIR}"
 echo ""
@@ -80,6 +81,17 @@ for dir in "${DIRS[@]}"; do
     fi
 done
 
+# 安装 docs/huangdi/ 模板文件（仅模板，工作目录在项目中由 Agent 创建）
+if [ -d "${SOURCE_DIR}/${DOCS_DIR}" ]; then
+    mkdir -p "${TARGET_DIR}/${DOCS_DIR}"
+    for file in "${SOURCE_DIR}/${DOCS_DIR}"/*.md; do
+        [ -f "$file" ] || continue
+        filename=$(basename "$file")
+        cp "$file" "${TARGET_DIR}/${DOCS_DIR}/${filename}"
+        installed=$((installed + 1))
+    done
+fi
+
 echo ""
 ok "安装完成！共安装 ${installed} 个文件。"
 echo ""
@@ -90,6 +102,10 @@ for dir in "${DIRS[@]}"; do
         echo "  ${TARGET_DIR}/${dir}/  (${count} 个文件)"
     fi
 done
+if [ -d "${TARGET_DIR}/${DOCS_DIR}" ]; then
+    echo "  ${TARGET_DIR}/${DOCS_DIR}/  (敕令模板文件)"
+fi
 echo ""
 info "现在可以在任意项目中使用 @zhongshuling 等 Agent 了。"
+info "首次使用时，Agent 会在项目根目录自动创建 docs/huangdi/ 目录结构。"
 info "卸载请运行: bash $(dirname "$0")/uninstall.sh"

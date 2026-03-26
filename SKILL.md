@@ -16,11 +16,16 @@ author: XuJiaKai
 - **职责分离**：发现问题的人不修代码，修代码的人不做诊断
 - **逻辑领域**：五监按业务逻辑而非文件路径划分，适配任何项目结构
 - **敕令驱动**：所有任务以标准化敕令流转，有编号、优先级、验收标准
+- **过程留痕**：所有敕令在政事堂留下完整记录，防止治理漂移
 
 ## 安装
 
 ```bash
+# 全局安装（推荐，所有项目可用）
 git clone https://github.com/xjk2000/claudecode-sslb.git
+cd claudecode-sslb && bash install.sh
+
+# 或单项目安装
 cp -r claudecode-sslb/claude/ your-project/.claude/
 ```
 
@@ -71,7 +76,7 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
   → 中书令汇报用户
 ```
 
-## 三大独有机制
+## 四大独有机制
 
 ### 1. 敕令制度
 所有任务以「敕令」形式流转，编号规则：
@@ -92,14 +97,21 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
 - 刑部定位根因 → 打回五监修复
 - 工部发现问题 → 打回五监改正
 
+### 4. 过程记录（政事堂 / 弘文馆）
+所有敕令在 `docs/huangdi/` 中留下完整生命周期记录：
+- `zhengshitang/` — 政事堂：当前活跃敕令，**每次会话启动时先读取此目录恢复上下文**
+- `hongwenguan/` — 弘文馆：已完成敕令归档，作为知识库
+- 防止治理漂移：Agent 通过读取政事堂重新锚定角色和任务状态
+
 ## Skills
 
 | Skill | 用途 | 使用者 |
 |-------|------|--------|
+| sslb:using-sslb | 会话启动指南（含治理铁律） | 系统 |
+| sslb:huangdi-docs | 过程记录规范 | 所有Agent |
 | sslb:edict-decompose | 敕令拆解 | 中书令 |
 | sslb:fengbo-review | 封驳审议 | 侍中 |
 | sslb:dahui-dispatch | 打回派发 | 兵部/刑部/工部 |
-| sslb:using-sslb | 会话启动指南 | 系统 |
 
 ## Slash Commands
 
