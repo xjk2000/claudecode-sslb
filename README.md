@@ -4,13 +4,22 @@
 
 ## 快速开始
 
-### 安装（2 步）
+### 方式一：全局安装到 ~/.claude/（推荐）
 
 ```bash
-# 1. 克隆三省六部
 git clone https://github.com/xjk2000/claudecode-sslb.git
+cd claudecode-sslb
+bash install.sh
+```
 
-# 2. 复制到你的项目（注意目标是 .claude/）
+全局安装后，所有项目都可以使用三省六部 Agent。
+
+卸载：`bash uninstall.sh`
+
+### 方式二：安装到单个项目
+
+```bash
+git clone https://github.com/xjk2000/claudecode-sslb.git
 cp -r claudecode-sslb/claude/ your-project/.claude/
 ```
 

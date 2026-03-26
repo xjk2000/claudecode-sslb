@@ -2,17 +2,24 @@
 
 基于 Claude Code Agent Teams 的 **16 Agent** 协作系统，无外部依赖，开箱即用。
 
-## 安装（2 步即可使用）
+## 安装
+
+### 全局安装（推荐）
 
 ```bash
-# 1. 克隆三省六部
 git clone https://github.com/xjk2000/claudecode-sslb.git
+cd claudecode-sslb
+bash install.sh       # 安装到 ~/.claude/
+# bash uninstall.sh   # 卸载
+```
 
-# 2. 复制到你的项目（注意目标是 .claude/）
+### 单项目安装
+
+```bash
 cp -r claudecode-sslb/claude/ your-project/.claude/
 ```
 
-安装完成后，在你的项目中使用 `@agent名` 调用 Agent，`/命令名` 使用 Slash Command。
+安装完成后，使用 `@agent名` 调用 Agent，`/命令名` 使用 Slash Command。
 
 ## 项目结构
 
