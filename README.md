@@ -1,6 +1,8 @@
 # 三省六部 Agent Teams
 
-基于 Claude Code Agent Teams 的 **16 Agent** 协作系统，无外部依赖，开箱即用。
+基于 Claude Code Agent Teams 的 **17 Agent** 协作系统，无外部依赖，开箱即用。
+
+两种工作模式：**三省六部**（16个 Agent 分工协作，严格审批）和 **翰林学士**（单 Agent 直接执行，快速迭代）。
 
 ## 快速开始
 
@@ -15,7 +17,7 @@ claude plugin marketplace add ./claudecode-sslb
 /plugin install sslb@sslb
 ```
 
-安装完成后，所有项目都可以使用三省六部 Agent。首次在项目中使用时，SessionStart hook 会自动创建 `docs/huangdi/` 目录结构。
+安装完成后，所有项目都可以使用三省六部 Agent。首次在项目中使用时，SessionStart hook 会自动创建 `我的帝国朝堂/` 目录结构。
 
 卸载：`claude plugin uninstall sslb`
 
@@ -38,13 +40,23 @@ claude plugin marketplace add ./claudecode-sslb
 /review                 # 启动审查
 /tdd                    # 启动 TDD
 
-# 方式二：@Agent 直接调用
+# 方式二：@Agent 直接调用（三省六部）
 @zhongshuling 分析用户注册需求
 @shangshuling 实现用户注册功能    # 尚书令自动判断需要哪些 Agent 协作
 @bingbu 为 UserService 写测试
 @xingbu 登录接口返回500
 @gongbu review 这次提交
+
+# 方式三：翰林学士（单 Agent 独立模式，跳过三省六部流程）
+@hanlin 帮我实现一个 XXX 功能
 ```
+
+## 两种工作模式
+
+| 模式 | 入口 | 适用场景 | Agent数 |
+|------|------|---------|--------|
+| **三省六部** | `@zhongshuling` 或 `/new-edict` | 复杂任务、需要多角色协作审批 | 16个 |
+| **翰林学士** | `@hanlin` | 快速迭代、独立任务、不需要审批流程 | 1个 |
 
 ## 系统架构
 
@@ -110,6 +122,15 @@ claude plugin marketplace add ./claudecode-sslb
 
 > 五监按**逻辑领域**而非文件路径划分，因为每个项目的代码结构不同。尚书令会根据实际项目结构判断路由。
 
+### 翰林学士（独立单 Agent）
+
+| Agent | @名称 | 模式 |
+|-------|--------|------|
+| 翰林学士 | `@hanlin` | 独立全能开发者，直接对用户负责，不走三省六部流程 |
+
+> **工作流**：Brainstorming → Planning → TDD → Debugging → Verification
+> **文档存储**：`我的帝国朝堂/翰林院/`（specs / plans / records）
+
 ## 核心流程
 
 ```
@@ -166,10 +187,10 @@ claude plugin marketplace add ./claudecode-sslb
 | 工部发现问题 | → 打回五监改正 |
 
 ### 4. 过程记录（政事堂 / 弘文馆）
-所有敕令的完整生命周期记录在 `docs/huangdi/` 目录中：
+所有敕令的完整生命周期记录在 `我的帝国朝堂/` 目录中：
 
 ```
-docs/huangdi/
+我的帝国朝堂/
 ├── 政事堂/                当前活跃敕令
 │   ├── 诏-20260327-001/    敕令文件夹（含主文件+计划+打回记录）
 │   └── 诏-20260327-002/
@@ -204,8 +225,8 @@ docs/huangdi/
 claudecode-sslb/                 # Plugin 根目录
 ├── .claude-plugin/plugin.json   # Plugin 清单
 ├── agents/                      # 16个Agent（@中文名 调用）
-├── commands/                    # 4个Slash Commands
-├── skills/                      # 5个Skills（<name>/SKILL.md 格式）
+├── commands/                    # 6个Slash Commands
+├── skills/                      # 6个Skills（<name>/SKILL.md 格式）
 ├── hooks/hooks.json             # SessionStart hook（项目自动初始化）
 ├── scripts/                     # 工具脚本
 └── templates/huangdi/           # 敕令模板文件
@@ -214,12 +235,13 @@ claudecode-sslb/                 # Plugin 根目录
 ### 项目级过程记录（SessionStart hook 自动创建）
 
 ```
-<项目>/docs/huangdi/
+<项目>/我的帝国朝堂/
 ├── 政事堂/                当前活跃敕令（诏-YYYYMMDD-XXX/ 文件夹式存储）
 ├── 秘书省/                归档敕令文件夹
 ├── 弘文馆/                敕令总结库
 ├── 考功司/ ~ 经籍库/       六部+五监文档库（共11个）
-└── TEMPLATE-edict.md        敕令模板
+├── 翰林院/                翰林学士文档库（specs/plans/records）
+└── TEMPLATE-edict.md      敕令模板
 ```
 
 

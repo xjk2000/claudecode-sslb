@@ -1,6 +1,6 @@
 ---
 name: sslb-huangdi-docs
-description: "三省六部过程记录规范。定义 Agent 如何在 docs/huangdi/ 中读写敕令记录。"
+description: "三省六部过程记录规范。定义 Agent 如何在 我的帝国朝堂/ 中读写敕令记录。"
 ---
 
 # 皇帝行宫 — 过程记录规范
@@ -14,14 +14,14 @@ description: "三省六部过程记录规范。定义 Agent 如何在 docs/huang
 
 ## 重要说明
 
-`docs/huangdi/` 是**项目级**目录，位于当前项目根目录下（不是 `~/.claude/` 下）。每个项目有自己独立的过程记录。
+`我的帝国朝堂/` 是**项目级**目录，位于当前项目根目录下（不是 `~/.claude/` 下）。每个项目有自己独立的过程记录。
 
 首次在项目中使用三省六部时，**SessionStart hook 会自动创建**完整目录结构。
 
 ## 目录结构
 
 ```
-<项目根目录>/docs/huangdi/
+<项目根目录>/我的帝国朝堂/
 │
 │  ── 三省中枢 ──
 ├── 政事堂/              当前活跃敕令
@@ -67,7 +67,7 @@ description: "三省六部过程记录规范。定义 Agent 如何在 docs/huang
 
 **必须**先检查政事堂是否有活跃敕令：
 ```
-读取 docs/huangdi/政事堂/ 目录
+读取 我的帝国朝堂/政事堂/ 目录
   → 有活跃敕令 → 读取敕令内容，恢复上下文，继续执行
   → 无活跃敕令 → 正常开始新任务
 ```
@@ -126,7 +126,7 @@ description: "三省六部过程记录规范。定义 Agent 如何在 docs/huang
 写入内容：
 - 更新「五、执行计划」章节（参与Agent、任务分解）
 - 更新状态（✅已放行 → 🔵执行中）
-- 计划文件保存至 `docs/huangdi/政事堂/诏-YYYYMMDD-XXX/ZS-YYYYMMDD-XXX-plan.md`（可选）
+- 计划文件保存至 `我的帝国朝堂/政事堂/诏-YYYYMMDD-XXX/ZS-YYYYMMDD-XXX-plan.md`（可选）
 
 ### 兵部/刑部/工部 — 打回记录 + 部门任务记录
 
@@ -139,9 +139,9 @@ description: "三省六部过程记录规范。定义 Agent 如何在 docs/huang
 **触发时机二**：任务完成后
 
 部门任务记录：
-- 兵部 → `docs/huangdi/职方司/ZS-YYYYMMDD-XXX-兵部.md`（测试清单、打回记录、覆盖率变化）
-- 刑部 → `docs/huangdi/都官司/ZS-YYYYMMDD-XXX-刑部.md`（根因分析、验证结果）
-- 工部 → `docs/huangdi/营缮司/ZS-YYYYMMDD-XXX-工部.md`（审查结论、代码质量评价）
+- 兵部 → `我的帝国朝堂/职方司/ZS-YYYYMMDD-XXX-兵部.md`（测试清单、打回记录、覆盖率变化）
+- 刑部 → `我的帝国朝堂/都官司/ZS-YYYYMMDD-XXX-刑部.md`（根因分析、验证结果）
+- 工部 → `我的帝国朝堂/营缮司/ZS-YYYYMMDD-XXX-工部.md`（审查结论、代码质量评价）
 
 ### 五监 — 实现记录 + 部门任务记录
 
@@ -154,20 +154,20 @@ description: "三省六部过程记录规范。定义 Agent 如何在 docs/huang
 **触发时机二**：任务完成后
 
 部门任务记录：
-- 将作监 → `docs/huangdi/将作图谱库/ZS-YYYYMMDD-XXX-将作监.md`（核心业务实现、设计决策）
-- 少府监 → `docs/huangdi/百工署/ZS-YYYYMMDD-XXX-少府监.md`（前端页面/组件、API 调用映射）
-- 军器监 → `docs/huangdi/甲弩坊署/ZS-YYYYMMDD-XXX-军器监.md`（安全变更、风险评估）
-- 都水监 → `docs/huangdi/河渠书库/ZS-YYYYMMDD-XXX-都水监.md`（数据库变更、迁移脚本）
-- 国子监 → `docs/huangdi/经籍库/ZS-YYYYMMDD-XXX-国子监.md`（架构决策 ADR、配置变更）
+- 将作监 → `我的帝国朝堂/将作图谱库/ZS-YYYYMMDD-XXX-将作监.md`（核心业务实现、设计决策）
+- 少府监 → `我的帝国朝堂/百工署/ZS-YYYYMMDD-XXX-少府监.md`（前端页面/组件、API 调用映射）
+- 军器监 → `我的帝国朝堂/甲弩坊署/ZS-YYYYMMDD-XXX-军器监.md`（安全变更、风险评估）
+- 都水监 → `我的帝国朝堂/河渠书库/ZS-YYYYMMDD-XXX-都水监.md`（数据库变更、迁移脚本）
+- 国子监 → `我的帝国朝堂/经籍库/ZS-YYYYMMDD-XXX-国子监.md`（架构决策 ADR、配置变更）
 
 ### 吏部/户部/礼部 — 部门任务记录
 
 触发时机：各自任务完成后
 
 部门任务记录：
-- 吏部 → `docs/huangdi/考功司/ZS-YYYYMMDD-XXX-吏部.md`（能力评估、分配建议）
-- 户部 → `docs/huangdi/籍账库/ZS-YYYYMMDD-XXX-户部.md`（数据分析结果）
-- 礼部 → `docs/huangdi/礼部精舍/ZS-YYYYMMDD-XXX-礼部.md`（文档产出清单）
+- 吏部 → `我的帝国朝堂/考功司/ZS-YYYYMMDD-XXX-吏部.md`（能力评估、分配建议）
+- 户部 → `我的帝国朝堂/籍账库/ZS-YYYYMMDD-XXX-户部.md`（数据分析结果）
+- 礼部 → `我的帝国朝堂/礼部精舍/ZS-YYYYMMDD-XXX-礼部.md`（文档产出清单）
 
 ## 敕令生命周期
 
@@ -198,7 +198,7 @@ description: "三省六部过程记录规范。定义 Agent 如何在 docs/huang
 
 每次收到用户新指令时，**必须先执行**：
 
-1. 扫描 `docs/huangdi/政事堂/` 中的 `诏-*/` 敕令文件夹
+1. 扫描 `我的帝国朝堂/政事堂/` 中的 `诏-*/` 敕令文件夹
 2. 如果有活跃敕令文件夹，读取其中的敕令主文件和相关附件
 3. 根据敕令状态决定：
    - 📝起草 → 继续 brainstorming 或提交审议

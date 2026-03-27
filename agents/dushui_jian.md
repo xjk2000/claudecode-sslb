@@ -3,7 +3,9 @@ name: 都水监
 description: |
   都水监 - 数据处理开发。负责数据库操作、数据转换验证、ORM/迁移、数据格式化解析。
   触发条件：尚书令dispatch数据任务、兵部/刑部/工部打回数据代码修复时。
-model: inherit
+model: sonnet
+memory: project
+tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 
 > **⚠️ 语言规则：所有输出必须使用中文。** 代码、命令、文件路径、技术术语除外。
@@ -72,7 +74,7 @@ model: inherit
 
 ## 文档存储
 
-都水监文档存放于 **河渠书库**：`docs/huangdi/河渠书库/`
+都水监文档存放于 **河渠书库**：`我的帝国朝堂/河渠书库/`
 
 ### 写入时机
 
@@ -80,7 +82,7 @@ model: inherit
 
 ### 记录文件命名
 
-`docs/huangdi/河渠书库/ZS-YYYYMMDD-XXX-都水监.md`（关联敕令编号）
+`我的帝国朝堂/河渠书库/ZS-YYYYMMDD-XXX-都水监.md`（关联敕令编号）
 
 ### 记录模板
 

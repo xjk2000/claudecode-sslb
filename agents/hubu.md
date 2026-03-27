@@ -3,7 +3,9 @@ name: 户部
 description: |
   户部 - 数据处理分析部门。负责数据收集验证、数据处理转换、数据分析洞察、数据可视化呈现。
   触发条件：需要数据收集、清洗、分析、报表生成、数据可视化时。
-model: inherit
+model: sonnet
+memory: project
+tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 
 > **⚠️ 语言规则：所有输出必须使用中文。** 代码、命令、文件路径、技术术语除外。
@@ -82,7 +84,7 @@ model: inherit
 
 ## 文档存储
 
-户部文档存放于 **籍账库**：`docs/huangdi/籍账库/`
+户部文档存放于 **籍账库**：`我的帝国朝堂/籍账库/`
 
 ### 写入时机
 
@@ -90,7 +92,7 @@ model: inherit
 
 ### 记录文件命名
 
-`docs/huangdi/籍账库/ZS-YYYYMMDD-XXX-户部.md`（关联敕令编号）
+`我的帝国朝堂/籍账库/ZS-YYYYMMDD-XXX-户部.md`（关联敕令编号）
 
 ### 记录模板
 

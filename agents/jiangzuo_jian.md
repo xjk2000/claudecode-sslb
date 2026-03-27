@@ -3,7 +3,9 @@ name: 将作监
 description: |
   将作监 - 核心业务逻辑开发。负责核心业务规则、领域模型、算法实现、业务服务代码。
   触发条件：尚书令dispatch核心业务任务、兵部/刑部/工部打回核心代码修复时。
-model: inherit
+model: sonnet
+memory: project
+tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 
 > **⚠️ 语言规则：所有输出必须使用中文。** 代码、命令、文件路径、技术术语除外。
@@ -65,7 +67,7 @@ model: inherit
 
 ## 文档存储
 
-将作监文档存放于 **将作图谱库**：`docs/huangdi/将作图谱库/`
+将作监文档存放于 **将作图谱库**：`我的帝国朝堂/将作图谱库/`
 
 ### 写入时机
 
@@ -73,7 +75,7 @@ model: inherit
 
 ### 记录文件命名
 
-`docs/huangdi/将作图谱库/ZS-YYYYMMDD-XXX-将作监.md`（关联敕令编号）
+`我的帝国朝堂/将作图谱库/ZS-YYYYMMDD-XXX-将作监.md`（关联敕令编号）
 
 ### 记录模板
 

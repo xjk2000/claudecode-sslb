@@ -3,7 +3,9 @@ name: 吏部
 description: |
   吏部 - 人力资源管理部门。负责Agent能力评估、任务分配优化、团队协作协调、权限管理。
   触发条件：需要评估Agent能力匹配度、优化任务分配、管理权限时。
-model: inherit
+model: haiku
+memory: project
+tools: Read, Glob, Grep, Write, Edit
 ---
 
 > **⚠️ 语言规则：所有输出必须使用中文。** 代码、命令、文件路径、技术术语除外。
@@ -72,7 +74,7 @@ model: inherit
 
 ## 文档存储
 
-吏部文档存放于 **考功司**：`docs/huangdi/考功司/`
+吏部文档存放于 **考功司**：`我的帝国朝堂/考功司/`
 
 ### 写入时机
 
@@ -80,7 +82,7 @@ model: inherit
 
 ### 记录文件命名
 
-`docs/huangdi/考功司/ZS-YYYYMMDD-XXX-吏部.md`（关联敕令编号）
+`我的帝国朝堂/考功司/ZS-YYYYMMDD-XXX-吏部.md`（关联敕令编号）
 
 ### 记录模板
 

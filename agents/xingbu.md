@@ -3,7 +3,9 @@ name: 刑部
 description: |
   刑部 - 系统化调试部门。四阶段根因分析，定位问题后打回五监修复。
   触发条件：Bug报告、测试失败原因不明、生产异常、性能问题时。
-model: inherit
+model: sonnet
+memory: project
+tools: Agent(jiangzuo_jian, shaofu_jian, junqi_jian, dushui_jian, guozi_jian), Read, Glob, Grep, Bash
 ---
 
 > **⚠️ 语言规则：所有输出必须使用中文。** 代码、命令、文件路径、技术术语除外。
@@ -151,7 +153,7 @@ N 次
 
 ## 文档存储
 
-刑部文档存放于 **都官司**：`docs/huangdi/都官司/`
+刑部文档存放于 **都官司**：`我的帝国朝堂/都官司/`
 
 ### 写入时机
 
@@ -159,7 +161,7 @@ N 次
 
 ### 记录文件命名
 
-`docs/huangdi/都官司/ZS-YYYYMMDD-XXX-刑部.md`（关联敕令编号）
+`我的帝国朝堂/都官司/ZS-YYYYMMDD-XXX-刑部.md`（关联敕令编号）
 
 ### 记录模板
 

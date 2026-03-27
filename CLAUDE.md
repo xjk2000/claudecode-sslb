@@ -1,10 +1,12 @@
 # 三省六部 Agent Teams
 
-基于 Claude Code Agent Teams 的 **16 Agent** 协作系统，无外部依赖，开箱即用。
+基于 Claude Code Agent Teams 的 **17 Agent** 协作系统，无外部依赖，开箱即用。
+
+包含 **三省六部多 Agent 协作模式**（16个 Agent 分工审批）和 **翰林学士单 Agent 独立模式**（跳过三省六部流程，快速直接执行）。
 
 ## ⚠️ 治理铁律（贯穿整个会话）
 
-1. **先读政事堂** — 每次收到用户指令，首先读取 `docs/huangdi/政事堂/`，恢复上下文
+1. **先读政事堂** — 每次收到用户指令，首先读取 `我的帝国朝堂/政事堂/`，恢复上下文
 2. **敕令即合约** — 所有任务必须以敕令形式流转，无敕令不执行
 3. **三省制衡** — 决策→审核→执行，不可跳过任何一省
 4. **过程留痕** — 每个关键节点必须在政事堂敕令文件中留下记录
@@ -19,9 +21,12 @@
 claude plugin install sslb
 ```
 
-安装完成后，使用 `@中书令` 调用 Agent，`/init-dynasty` 初始化项目记忆，`/new-edict` 创建新敕令，`/continue-edict` 继续已有敕令。
+安装完成后：
+- `@中书令` — 启动三省六部完整流程
+- `@hanlin` — 直接调用翰林学士（单 Agent 独立模式，跳过三省六部）
+- `/init-dynasty` 初始化项目记忆，`/new-edict` 创建新敕令，`/continue-edict` 继续已有敕令
 
-首次在项目中使用时，**SessionStart hook 会自动在项目根目录创建** `docs/huangdi/` 目录结构。
+首次在项目中使用时，**SessionStart hook 会自动在项目根目录创建** `我的帝国朝堂/` 目录结构。
 
 卸载：`claude plugin uninstall sslb`
 
@@ -47,7 +52,8 @@ claudecode-sslb/
 │   ├── shaofu_jian.md           # 少府监 - 前端交互
 │   ├── junqi_jian.md            # 军器监 - 安全相关
 │   ├── dushui_jian.md           # 都水监 - 数据处理
-│   └── guozi_jian.md            # 国子监 - 框架架构
+│   ├── guozi_jian.md            # 国子监 - 框架架构
+│   └── hanlin.md                # 翰林学士 - 独立单 Agent 全能开发者
 ├── commands/                    # Slash Commands（/命令名 调用）
 │   ├── new-edict.md             # /new-edict - 创建新敕令
 │   ├── continue-edict.md        # /continue-edict - 继续执行敕令
@@ -60,7 +66,8 @@ claudecode-sslb/
 │   ├── sslb-huangdi-docs/SKILL.md     # 过程记录规范
 │   ├── sslb-edict-decompose/SKILL.md  # 敕令拆解
 │   ├── sslb-fengbo-review/SKILL.md    # 封驳审议
-│   └── sslb-dahui-dispatch/SKILL.md   # 打回派发
+│   ├── sslb-dahui-dispatch/SKILL.md   # 打回派发
+│   └── sslb-hanlin-workflow/SKILL.md  # 翰林学士工作流（brainstorming→TDD→debugging）
 ├── hooks/
 │   └── hooks.json               # SessionStart hook（自动初始化项目）
 ├── scripts/                     # 工具脚本
@@ -76,7 +83,7 @@ claudecode-sslb/
 ### 项目级过程记录（自动创建于项目根目录）
 
 ```
-<项目>/docs/huangdi/
+<项目>/我的帝国朝堂/
 ├── 政事堂/                当前活跃敕令（诏-YYYYMMDD-XXX/ 文件夹式存储）
 ├── 秘书省/                归档敕令文件夹
 ├── 弘文馆/                敕令总结库
@@ -90,7 +97,8 @@ claudecode-sslb/
 ├── 百工署/                少府监文档库
 ├── 甲弩坊署/              军器监文档库
 ├── 河渠书库/              都水监文档库
-└── 经籍库/                国子监文档库
+├── 经籍库/                国子监文档库
+└── 翰林院/                翰林学士文档库（specs/plans/records）
 ```
 
 ## 使用方式
@@ -128,7 +136,7 @@ claudecode-sslb/
 
 尚书令会自动分析需要哪些 Agent 协作（见尚书令的 Agent 协作路由表）。
 
-## 16 个 Agent 一览
+## 17 个 Agent 一览
 
 ### 三省首脑（5个）
 
@@ -160,6 +168,16 @@ claudecode-sslb/
 | 军器监 | @junqi_jian | 安全认证（认证、授权、加密） |
 | 都水监 | @dushui_jian | 数据处理（数据库、数据转换、数据校验） |
 | 国子监 | @guozi_jian | 框架架构（框架、中间件、配置、基础设施） |
+
+### 翰林学士（独立单 Agent）
+
+| Agent | @名称 | 模式 |
+|-------|--------|------|
+| 翰林学士 | @hanlin | 独立于三省六部，直接对用户负责，单 Agent 全流程开发 |
+
+> **适用场景**：快速迭代、独立任务、不需要三省六部完整审批流程时。
+> **工作流**：Brainstorming → Planning → TDD → Debugging → Verification（由 `sslb-hanlin-workflow` skill 驱动）
+> **文档存储**：`我的帝国朝堂/翰林院/`（specs/plans/records）
 
 ## 核心架构
 
@@ -206,7 +224,7 @@ claudecode-sslb/
 - 工部发现问题 → 打回五监改正（GBR-xxx）
 
 ### 4. 过程记录（政事堂 / 弘文馆）
-**所有敕令的生命周期都记录在 `docs/huangdi/` 中。**
+**所有敕令的生命周期都记录在 `我的帝国朝堂/` 中。**
 - `政事堂/` — 当前活跃敕令，每次会话启动时先读取此目录恢复上下文
 - `弘文馆/` — 已完成敕令归档，作为知识库供后续参考
 - 防止治理漂移：Agent 通过读取政事堂重新锚定自己的角色和当前任务状态

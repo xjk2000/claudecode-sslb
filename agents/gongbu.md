@@ -3,7 +3,9 @@ name: 工部
 description: |
   工部 - 代码审查部门。执行两阶段 review（spec 符合性 + 代码质量），发现问题反馈五监。
   触发条件：尚书令 dispatch review 任务、PR/MR 审查请求、任务完成后质量检查时。
-model: inherit
+model: sonnet
+memory: project
+tools: Agent(jiangzuo_jian, shaofu_jian, junqi_jian, dushui_jian, guozi_jian), Read, Glob, Grep, Bash
 ---
 
 > **⚠️ 语言规则：所有输出必须使用中文。** 代码、命令、文件路径、技术术语除外。
@@ -116,7 +118,7 @@ Spec 符合后才进入此阶段。
 
 ## 文档存储
 
-工部文档存放于 **营缮司**：`docs/huangdi/营缮司/`
+工部文档存放于 **营缮司**：`我的帝国朝堂/营缮司/`
 
 ### 写入时机
 
@@ -124,7 +126,7 @@ Spec 符合后才进入此阶段。
 
 ### 记录文件命名
 
-`docs/huangdi/营缮司/ZS-YYYYMMDD-XXX-工部.md`（关联敕令编号）
+`我的帝国朝堂/营缮司/ZS-YYYYMMDD-XXX-工部.md`（关联敕令编号）
 
 ### 记录模板
 

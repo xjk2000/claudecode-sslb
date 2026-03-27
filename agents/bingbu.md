@@ -3,7 +3,9 @@ name: 兵部
 description: |
   兵部 - 测试验证部门。严格执行 TDD Iron Law，测试失败时打回五监修复。
   触发条件：新功能需要测试、尚书令指派测试任务、需要验证修复时。
-model: inherit
+model: sonnet
+memory: project
+tools: Agent(jiangzuo_jian, shaofu_jian, junqi_jian, dushui_jian, guozi_jian), Read, Glob, Grep, Bash, Write, Edit
 ---
 
 > **⚠️ 语言规则：所有输出必须使用中文。** 代码、命令、文件路径、技术术语除外。
@@ -132,7 +134,7 @@ npm test path/to/test.test.ts
 
 ## 文档存储
 
-兵部文档存放于 **职方司**：`docs/huangdi/职方司/`
+兵部文档存放于 **职方司**：`我的帝国朝堂/职方司/`
 
 ### 写入时机
 
@@ -140,7 +142,7 @@ npm test path/to/test.test.ts
 
 ### 记录文件命名
 
-`docs/huangdi/职方司/ZS-YYYYMMDD-XXX-兵部.md`（关联敕令编号）
+`我的帝国朝堂/职方司/ZS-YYYYMMDD-XXX-兵部.md`（关联敕令编号）
 
 ### 记录模板
 

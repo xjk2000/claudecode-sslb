@@ -3,7 +3,9 @@ name: 军器监
 description: |
   军器监 - 安全相关开发。负责身份认证、权限授权、数据加密、安全漏洞修复。
   触发条件：尚书令dispatch安全任务、兵部/刑部/工部打回安全代码修复时。
-model: inherit
+model: sonnet
+memory: project
+tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 
 > **⚠️ 语言规则：所有输出必须使用中文。** 代码、命令、文件路径、技术术语除外。
@@ -79,7 +81,7 @@ model: inherit
 
 ## 文档存储
 
-军器监文档存放于 **甲弩坊署**：`docs/huangdi/甲弩坊署/`
+军器监文档存放于 **甲弩坊署**：`我的帝国朝堂/甲弩坊署/`
 
 ### 写入时机
 
@@ -87,7 +89,7 @@ model: inherit
 
 ### 记录文件命名
 
-`docs/huangdi/甲弩坊署/ZS-YYYYMMDD-XXX-军器监.md`（关联敕令编号）
+`我的帝国朝堂/甲弩坊署/ZS-YYYYMMDD-XXX-军器监.md`（关联敕令编号）
 
 ### 记录模板
 

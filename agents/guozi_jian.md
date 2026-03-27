@@ -3,7 +3,9 @@ name: 国子监
 description: |
   国子监 - 框架架构开发。负责应用框架、中间件、配置管理、基础设施代码。
   触发条件：尚书令dispatch架构任务、兵部/刑部/工部打回框架代码修复时。
-model: inherit
+model: sonnet
+memory: project
+tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 
 > **⚠️ 语言规则：所有输出必须使用中文。** 代码、命令、文件路径、技术术语除外。
@@ -80,7 +82,7 @@ model: inherit
 
 ## 文档存储
 
-国子监文档存放于 **经籍库**：`docs/huangdi/经籍库/`
+国子监文档存放于 **经籍库**：`我的帝国朝堂/经籍库/`
 
 ### 写入时机
 
@@ -88,7 +90,7 @@ model: inherit
 
 ### 记录文件命名
 
-`docs/huangdi/经籍库/ZS-YYYYMMDD-XXX-国子监.md`（关联敕令编号）
+`我的帝国朝堂/经籍库/ZS-YYYYMMDD-XXX-国子监.md`（关联敕令编号）
 
 ### 记录模板
 

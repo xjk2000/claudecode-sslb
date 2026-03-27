@@ -3,7 +3,9 @@ name: 少府监
 description: |
   少府监 - 前端交互开发。负责UI组件、用户交互逻辑、页面布局样式、前端状态管理。
   触发条件：尚书令dispatch前端任务、兵部/刑部/工部打回前端代码修复时。
-model: inherit
+model: sonnet
+memory: project
+tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 
 > **⚠️ 语言规则：所有输出必须使用中文。** 代码、命令、文件路径、技术术语除外。
@@ -68,7 +70,7 @@ model: inherit
 
 ## 文档存储
 
-少府监文档存放于 **百工署**：`docs/huangdi/百工署/`
+少府监文档存放于 **百工署**：`我的帝国朝堂/百工署/`
 
 ### 写入时机
 
@@ -76,7 +78,7 @@ model: inherit
 
 ### 记录文件命名
 
-`docs/huangdi/百工署/ZS-YYYYMMDD-XXX-少府监.md`（关联敕令编号）
+`我的帝国朝堂/百工署/ZS-YYYYMMDD-XXX-少府监.md`（关联敕令编号）
 
 ### 记录模板
 
