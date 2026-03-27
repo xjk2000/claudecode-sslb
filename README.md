@@ -7,7 +7,12 @@
 ### 安装（Claude Code Plugin）
 
 ```bash
-claude plugin install sslb
+cd ./claudecode-sslb
+# 先安装marketplace
+claude plugin marketplace add ./claudecode-sslb
+
+# plugin 安装
+/plugin install sslb@sslb
 ```
 
 安装完成后，所有项目都可以使用三省六部 Agent。首次在项目中使用时，SessionStart hook 会自动创建 `docs/huangdi/` 目录结构。
