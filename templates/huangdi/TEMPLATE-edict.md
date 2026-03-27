@@ -1,5 +1,6 @@
 # 中书敕令 ZS-YYYYMMDD-XXX
 
+**敕令文件夹**: 诏-YYYYMMDD-XXX/
 **优先级**: P0/P1/P2/P3
 **类型**: feature/bugfix/refactor/review/docs
 **状态**: 📝起草 → ⏳待审议 → ✅已放行 → 🔵执行中 → 🟢已完成

@@ -82,7 +82,7 @@ cmd_init() {
 get_next_seq() {
     local prefix="$1"
     local count
-    count=$(find "$EDICT_DIR" -name "${prefix}-${DATE_PREFIX}-*" -type f 2>/dev/null | wc -l | tr -d ' ')
+    count=$(find "$EDICT_DIR" -name "诏-${DATE_PREFIX}-*" -type d 2>/dev/null | wc -l | tr -d ' ')
     printf "%03d" $((count + 1))
 }
 
@@ -116,13 +116,16 @@ cmd_create() {
     local seq
     seq=$(get_next_seq "$prefix")
     local edict_id="${prefix}-${DATE_PREFIX}-${seq}"
-    local filename="$EDICT_DIR/active/${edict_id}.md"
+    local edict_folder="$EDICT_DIR/active/诏-${DATE_PREFIX}-${seq}"
+    mkdir -p "$edict_folder"
+    local filename="$edict_folder/${edict_id}.md"
     local now
     now=$(date '+%Y-%m-%d %H:%M:%S')
 
     cat > "$filename" << EOF
 # ${edict_id}
 
+**敕令文件夹**: 诏-${DATE_PREFIX}-${seq}/
 **创建时间**: ${now}
 **优先级**: ${priority}
 **类型**: ${type}
@@ -144,7 +147,7 @@ ${title}
 (无)
 EOF
 
-    echo "{\"edict_id\": \"${edict_id}\", \"file\": \"${filename}\", \"status\": \"created\"}"
+    echo "{\"edict_id\": \"${edict_id}\", \"folder\": \"${edict_folder}\", \"file\": \"${filename}\", \"status\": \"created\"}"
 }
 
 # 列出敕令
@@ -164,24 +167,28 @@ cmd_list() {
             ;;
         all)
             echo "=== 活跃敕令 ==="
-            find "$EDICT_DIR/active" -name "*.md" -type f 2>/dev/null | sort | while read -r f; do
-                local id
-                id=$(basename "$f" .md)
-                local prio
-                prio=$(grep "^\*\*优先级\*\*:" "$f" | head -1 | sed 's/.*: //')
-                local st
-                st=$(grep "^\*\*状态\*\*:" "$f" | head -1 | sed 's/.*: //')
-                local dept
-                dept=$(grep "^\*\*主责部门\*\*:" "$f" | head -1 | sed 's/.*: //')
-                echo "  ${id} [${prio}] ${st} → ${dept}"
+            find "$EDICT_DIR/active" -maxdepth 1 -name "诏-*" -type d 2>/dev/null | sort | while read -r d; do
+                local folder_name
+                folder_name=$(basename "$d")
+                local f
+                f=$(find "$d" -maxdepth 1 -name "ZS-*.md" -o -name "BTD-*.md" -o -name "TIAO-*.md" -o -name "GBR-*.md" 2>/dev/null | head -1)
+                if [ -n "$f" ]; then
+                    local id
+                    id=$(basename "$f" .md)
+                    local prio
+                    prio=$(grep "^\*\*优先级\*\*:" "$f" | head -1 | sed 's/.*: //')
+                    local st
+                    st=$(grep "^\*\*状态\*\*:" "$f" | head -1 | sed 's/.*: //')
+                    local dept
+                    dept=$(grep "^\*\*主责部门\*\*:" "$f" | head -1 | sed 's/.*: //')
+                    echo "  ${folder_name}/ ${id} [${prio}] ${st} → ${dept}"
+                fi
             done
 
             echo ""
             echo "=== 已完成敕令 ==="
-            find "$EDICT_DIR/completed" -name "*.md" -type f 2>/dev/null | sort | while read -r f; do
-                local id
-                id=$(basename "$f" .md)
-                echo "  ${id}"
+            find "$EDICT_DIR/completed" -maxdepth 1 -name "诏-*" -type d 2>/dev/null | sort | while read -r d; do
+                echo "  $(basename "$d")/"
             done
             return
             ;;
@@ -191,14 +198,20 @@ cmd_list() {
             ;;
     esac
 
-    find "$dir" -name "*.md" -type f 2>/dev/null | sort | while read -r f; do
-        local id
-        id=$(basename "$f" .md)
-        local prio
-        prio=$(grep "^\*\*优先级\*\*:" "$f" | head -1 | sed 's/.*: //')
-        local st
-        st=$(grep "^\*\*状态\*\*:" "$f" | head -1 | sed 's/.*: //')
-        echo "  ${id} [${prio}] ${st}"
+    find "$dir" -maxdepth 1 -name "诏-*" -type d 2>/dev/null | sort | while read -r d; do
+        local folder_name
+        folder_name=$(basename "$d")
+        local f
+        f=$(find "$d" -maxdepth 1 -name "*.md" -type f 2>/dev/null | head -1)
+        if [ -n "$f" ]; then
+            local id
+            id=$(basename "$f" .md)
+            local prio
+            prio=$(grep "^\*\*优先级\*\*:" "$f" | head -1 | sed 's/.*: //')
+            local st
+            st=$(grep "^\*\*状态\*\*:" "$f" | head -1 | sed 's/.*: //')
+            echo "  ${folder_name}/ ${id} [${prio}] ${st}"
+        fi
     done
 }
 
@@ -218,6 +231,10 @@ cmd_status() {
         exit 1
     fi
 
+    # 找到敕令所在的文件夹
+    local edict_folder
+    edict_folder=$(dirname "$file")
+
     # 更新状态
     if [[ "$OSTYPE" == "darwin"* ]]; then
         sed -i '' "s/^\*\*状态\*\*: .*/\*\*状态\*\*: ${new_status}/" "$file"
@@ -235,13 +252,13 @@ ${record}
         sed -i "/^| 时间 | 操作 | 操作人 |/,/^$/{/^$/i\\${record}" "$file"
     fi
 
-    # 移动到对应目录
+    # 移动整个敕令文件夹到对应目录
     case "$new_status" in
         已完成)
-            mv "$file" "$EDICT_DIR/completed/"
+            mv "$edict_folder" "$EDICT_DIR/completed/"
             ;;
         已封驳)
-            mv "$file" "$EDICT_DIR/rejected/"
+            mv "$edict_folder" "$EDICT_DIR/rejected/"
             ;;
     esac
 
@@ -260,6 +277,15 @@ cmd_get() {
         exit 1
     fi
 
+    local edict_folder
+    edict_folder=$(dirname "$file")
+
+    echo "=== 敕令文件夹: $(basename "$edict_folder")/ ==="
+    echo ""
+    echo "--- 文件列表 ---"
+    ls -1 "$edict_folder"
+    echo ""
+    echo "--- 敕令主文件 ---"
     cat "$file"
 }
 

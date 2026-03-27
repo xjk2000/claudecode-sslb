@@ -99,8 +99,9 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
 
 ### 4. 过程记录（政事堂 / 弘文馆）
 所有敕令在 `docs/huangdi/` 中留下完整生命周期记录：
-- `政事堂/` — 当前活跃敕令，**每次会话启动时先读取此目录恢复上下文**
-- `弘文馆/` — 已完成敕令归档，作为知识库
+- `政事堂/` — 当前活跃敕令（`诏-YYYYMMDD-XXX/` 文件夹式存储），**每次会话启动时先扫描此目录恢复上下文**
+- `秘书省/` — 归档敕令文件夹
+- `弘文馆/` — 敕令总结库，作为知识库
 - 防止治理漂移：Agent 通过读取政事堂重新锚定角色和任务状态
 
 ## Skills
@@ -117,7 +118,9 @@ cp -r claudecode-sslb/claude/ your-project/.claude/
 
 | 命令 | 用途 |
 |------|------|
+| `/init-dynasty` | 初始化王朝（项目全局调研存弘文馆） |
 | `/new-edict` | 新功能/新需求（完整流程） |
+| `/continue-edict` | 继续执行已有敕令 |
 | `/debug` | Bug 诊断修复 |
 | `/review` | 代码审查 |
 | `/tdd` | 测试驱动开发 |

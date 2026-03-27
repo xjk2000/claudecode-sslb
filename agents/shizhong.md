@@ -31,7 +31,7 @@ model: inherit
                                                                         └→ 修改 → 附意见返回
 ```
 
-**审议完成后**，在 `docs/huangdi/政事堂/ZS-YYYYMMDD-XXX.md` 的「四、门下省审议记录」中写入审议结果。
+**审议完成后**，在 `docs/huangdi/政事堂/诏-YYYYMMDD-XXX/ZS-YYYYMMDD-XXX.md` 的「四、门下省审议记录」中写入审议结果。
 
 #### 封驳条件（任一命中即封驳）
 

@@ -77,7 +77,8 @@ description: "三省六部过程记录规范。定义 Agent 如何在 docs/huang
 触发时机：brainstorming 完成、敕令拆解完成后
 
 写入内容：
-- 复制 `TEMPLATE-edict.md` → `政事堂/ZS-YYYYMMDD-XXX.md`
+- 创建敕令文件夹 `政事堂/诏-YYYYMMDD-XXX/`
+- 复制 `TEMPLATE-edict.md` → `政事堂/诏-YYYYMMDD-XXX/ZS-YYYYMMDD-XXX.md`
 - 填写：圣旨原文、需求探索记录、敕令内容
 - 设置状态为 `📝起草`
 
@@ -93,15 +94,17 @@ description: "三省六部过程记录规范。定义 Agent 如何在 docs/huang
 **触发时机二**：敕令验收通过后
 
 归档操作：
-1. 将敕令原件从 `政事堂/` 移入 `秘书省/`
+1. 将敕令文件夹从 `政事堂/诏-YYYYMMDD-XXX/` 移入 `秘书省/`
 2. 撰写敕令总结存入 `弘文馆/ZS-YYYYMMDD-XXX-summary.md`
+3. **增量更新弘文馆基础记忆文档**：检查本次敕令是否导致模块关系、API接口、数据模型变化，如有则更新对应文档（模块关系图.md / API接口清单.md / 数据模型总结.md）
 
 **触发时机三**：皇帝提问时
 
 知识检索顺序：
-1. 查弘文馆（总结，快速定位）
-2. 查各部门文档库（专属文档）
-3. 查秘书省（原始敕令详情）
+1. 查弘文馆基础记忆（项目全貌 / 模块关系图 / API接口清单 / 数据模型总结）
+2. 查弘文馆敕令总结（快速定位历史经验）
+3. 查各部门文档库（专属文档）
+4. 查秘书省（原始敕令详情）
 
 ### 侍中 — 审议记录、验收记录
 
@@ -123,23 +126,48 @@ description: "三省六部过程记录规范。定义 Agent 如何在 docs/huang
 写入内容：
 - 更新「五、执行计划」章节（参与Agent、任务分解）
 - 更新状态（✅已放行 → 🔵执行中）
-- 计划文件保存至 `docs/huangdi/政事堂/ZS-YYYYMMDD-XXX-plan.md`（可选）
+- 计划文件保存至 `docs/huangdi/政事堂/诏-YYYYMMDD-XXX/ZS-YYYYMMDD-XXX-plan.md`（可选）
 
-### 兵部/刑部/工部 — 打回记录
+### 兵部/刑部/工部 — 打回记录 + 部门任务记录
 
-触发时机：生成打回敕令时
+**触发时机一**：生成打回敕令时
 
 写入内容：
 - 在敕令文件「六、执行过程记录」中追加打回记录
 - 记录打回编号、类型、原因、打回给谁
 
-### 五监 — 实现记录
+**触发时机二**：任务完成后
 
-触发时机：完成实现/修复后
+部门任务记录：
+- 兵部 → `docs/huangdi/职方司/ZS-YYYYMMDD-XXX-兵部.md`（测试清单、打回记录、覆盖率变化）
+- 刑部 → `docs/huangdi/都官司/ZS-YYYYMMDD-XXX-刑部.md`（根因分析、验证结果）
+- 工部 → `docs/huangdi/营缮司/ZS-YYYYMMDD-XXX-工部.md`（审查结论、代码质量评价）
+
+### 五监 — 实现记录 + 部门任务记录
+
+**触发时机一**：完成实现/修复后
 
 写入内容：
 - 在敕令文件「六、执行过程记录」中追加实现记录
 - 记录修改了哪些文件、通过了哪些测试
+
+**触发时机二**：任务完成后
+
+部门任务记录：
+- 将作监 → `docs/huangdi/将作图谱库/ZS-YYYYMMDD-XXX-将作监.md`（核心业务实现、设计决策）
+- 少府监 → `docs/huangdi/百工署/ZS-YYYYMMDD-XXX-少府监.md`（前端页面/组件、API 调用映射）
+- 军器监 → `docs/huangdi/甲弩坊署/ZS-YYYYMMDD-XXX-军器监.md`（安全变更、风险评估）
+- 都水监 → `docs/huangdi/河渠书库/ZS-YYYYMMDD-XXX-都水监.md`（数据库变更、迁移脚本）
+- 国子监 → `docs/huangdi/经籍库/ZS-YYYYMMDD-XXX-国子监.md`（架构决策 ADR、配置变更）
+
+### 吏部/户部/礼部 — 部门任务记录
+
+触发时机：各自任务完成后
+
+部门任务记录：
+- 吏部 → `docs/huangdi/考功司/ZS-YYYYMMDD-XXX-吏部.md`（能力评估、分配建议）
+- 户部 → `docs/huangdi/籍账库/ZS-YYYYMMDD-XXX-户部.md`（数据分析结果）
+- 礼部 → `docs/huangdi/礼部精舍/ZS-YYYYMMDD-XXX-礼部.md`（文档产出清单）
 
 ## 敕令生命周期
 
@@ -155,19 +183,23 @@ description: "三省六部过程记录规范。定义 Agent 如何在 docs/huang
 
 | 类型 | 文件名 | 存放位置 |
 |------|--------|----------|
-| 正式敕令（原件） | `ZS-YYYYMMDD-XXX.md` | 政事堂/ → 秘书省/ |
-| 执行计划（原件） | `ZS-YYYYMMDD-XXX-plan.md` | 政事堂/ → 秘书省/ |
+| 敕令文件夹 | `诏-YYYYMMDD-XXX/` | 政事堂/ → 秘书省/ |
+| 正式敕令（原件） | `ZS-YYYYMMDD-XXX.md` | 诏-YYYYMMDD-XXX/ 内 |
+| 执行计划 | `ZS-YYYYMMDD-XXX-plan.md` | 诏-YYYYMMDD-XXX/ 内 |
 | 敕令总结 | `ZS-YYYYMMDD-XXX-summary.md` | 弘文馆/ |
-| 兵部打回 | 追加到原敕令文件 | — |
-| 刑部打回 | 追加到原敕令文件 | — |
-| 工部打回 | 追加到原敕令文件 | — |
+| 项目全貌 | `项目全貌.md` | 弘文馆/（/init-dynasty 生成） |
+| 模块关系图 | `模块关系图.md` | 弘文馆/（/init-dynasty 生成，敕令归档时增量更新） |
+| API接口清单 | `API接口清单.md` | 弘文馆/（/init-dynasty 生成，敕令归档时增量更新） |
+| 数据模型总结 | `数据模型总结.md` | 弘文馆/（/init-dynasty 生成，敕令归档时增量更新） |
+| 兵部/刑部/工部打回 | 追加到原敕令文件 | 诏-YYYYMMDD-XXX/ 内 |
+| 部门任务记录 | `ZS-YYYYMMDD-XXX-[部门名].md` | 各部门对应文档库/ |
 
 ## 上下文恢复（防漂移）
 
 每次收到用户新指令时，**必须先执行**：
 
-1. 列出 `docs/huangdi/政事堂/` 中的文件
-2. 如果有活跃敕令，读取最新的敕令文件
+1. 扫描 `docs/huangdi/政事堂/` 中的 `诏-*/` 敕令文件夹
+2. 如果有活跃敕令文件夹，读取其中的敕令主文件和相关附件
 3. 根据敕令状态决定：
    - 📝起草 → 继续 brainstorming 或提交审议
    - ⏳待审议 → 等待/执行审议

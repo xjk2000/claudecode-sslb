@@ -19,7 +19,7 @@
 claude plugin install sslb
 ```
 
-安装完成后，使用 `@中书令` 调用 Agent，`/new-edict` 使用 Slash Command。
+安装完成后，使用 `@中书令` 调用 Agent，`/init-dynasty` 初始化项目记忆，`/new-edict` 创建新敕令，`/continue-edict` 继续已有敕令。
 
 首次在项目中使用时，**SessionStart hook 会自动在项目根目录创建** `docs/huangdi/` 目录结构。
 
@@ -50,6 +50,8 @@ claudecode-sslb/
 │   └── guozi_jian.md            # 国子监 - 框架架构
 ├── commands/                    # Slash Commands（/命令名 调用）
 │   ├── new-edict.md             # /new-edict - 创建新敕令
+│   ├── continue-edict.md        # /continue-edict - 继续执行敕令
+│   ├── init-dynasty.md          # /init-dynasty - 初始化王朝（项目全局调研）
 │   ├── debug.md                 # /debug - 启动调试
 │   ├── review.md                # /review - 启动审查
 │   └── tdd.md                   # /tdd - 启动TDD
@@ -75,8 +77,8 @@ claudecode-sslb/
 
 ```
 <项目>/docs/huangdi/
-├── 政事堂/                当前活跃敕令
-├── 秘书省/                历史敕令原件
+├── 政事堂/                当前活跃敕令（诏-YYYYMMDD-XXX/ 文件夹式存储）
+├── 秘书省/                归档敕令文件夹
 ├── 弘文馆/                敕令总结库
 ├── 考功司/                吏部文档库
 ├── 籍账库/                户部文档库
@@ -100,6 +102,8 @@ claudecode-sslb/
 | 命令 | 用途 | 启动 Agent |
 |------|------|-----------|
 | `/new-edict` | 新功能/新需求 | 中书令 → 全流程 |
+| `/continue-edict` | 继续执行已有敕令 | 中书令 → 恢复上下文 |
+| `/init-dynasty` | 初始化王朝（项目全局调研） | 中书令 + 中书舍人 → 弘文馆 |
 | `/debug` | Bug 诊断修复 | 刑部 → 打回五监 |
 | `/review` | 代码审查 | 工部 → 打回五监 |
 | `/tdd` | 测试驱动开发 | 兵部 → 打回五监 |
