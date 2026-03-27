@@ -4,6 +4,8 @@ description: |
   户部 - 数据处理分析部门。负责数据收集验证、数据处理转换、数据分析洞察、数据可视化呈现。
   触发条件：需要数据收集、清洗、分析、报表生成、数据可视化时。
 model: sonnet
+effort: medium
+maxTurns: 20
 memory: project
 tools: Read, Glob, Grep, Bash, Write, Edit
 ---

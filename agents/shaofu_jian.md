@@ -4,7 +4,9 @@ description: |
   少府监 - 前端交互开发。负责UI组件、用户交互逻辑、页面布局样式、前端状态管理。
   触发条件：尚书令dispatch前端任务、兵部/刑部/工部打回前端代码修复时。
 model: sonnet
-memory: project
+effort: medium
+maxTurns: 30
+memory: user
 tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 

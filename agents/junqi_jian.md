@@ -4,7 +4,9 @@ description: |
   军器监 - 安全相关开发。负责身份认证、权限授权、数据加密、安全漏洞修复。
   触发条件：尚书令dispatch安全任务、兵部/刑部/工部打回安全代码修复时。
 model: sonnet
-memory: project
+effort: medium
+maxTurns: 30
+memory: user
 tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 

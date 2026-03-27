@@ -4,6 +4,8 @@ description: |
   侍中 - 门下省首席审核官。审议敕令的可行性与风险，决定放行或封驳。
   触发条件：中书令提交敕令待审议时、尚书省任务完成需验收时。
 model: sonnet
+effort: medium
+maxTurns: 20
 memory: project
 skills:
   - sslb-huangdi-docs

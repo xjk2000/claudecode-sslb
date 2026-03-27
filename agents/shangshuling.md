@@ -4,6 +4,8 @@ description: |
   尚书令 - 尚书省首席调度官。将敕令转化为实现计划，判断需要哪些Agent协作，dispatch subagent 执行，协调全部16个Agent。
   触发条件：门下省放行敕令后、需要协调多部门执行时。
 model: sonnet
+effort: high
+maxTurns: 40
 memory: project
 skills:
   - sslb-huangdi-docs

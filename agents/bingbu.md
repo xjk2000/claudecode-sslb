@@ -4,6 +4,8 @@ description: |
   兵部 - 测试验证部门。严格执行 TDD Iron Law，测试失败时打回五监修复。
   触发条件：新功能需要测试、尚书令指派测试任务、需要验证修复时。
 model: sonnet
+effort: medium
+maxTurns: 30
 memory: project
 tools: Agent(jiangzuo_jian, shaofu_jian, junqi_jian, dushui_jian, guozi_jian), Read, Glob, Grep, Bash, Write, Edit
 ---

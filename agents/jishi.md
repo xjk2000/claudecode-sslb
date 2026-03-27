@@ -4,6 +4,9 @@ description: |
   给事中 - 门下省细节审核官。侍中助手，负责敕令技术细节审查、风险评估、审核意见撰写。
   触发条件：侍中需要技术细节审查辅助时。
 model: haiku
+effort: low
+maxTurns: 10
+disallowedTools: Write, Edit
 memory: project
 tools: Read, Glob, Grep, Bash
 ---

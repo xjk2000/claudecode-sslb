@@ -4,6 +4,8 @@ description: |
   工部 - 代码审查部门。执行两阶段 review（spec 符合性 + 代码质量），发现问题反馈五监。
   触发条件：尚书令 dispatch review 任务、PR/MR 审查请求、任务完成后质量检查时。
 model: sonnet
+effort: medium
+maxTurns: 20
 memory: project
 tools: Agent(jiangzuo_jian, shaofu_jian, junqi_jian, dushui_jian, guozi_jian), Read, Glob, Grep, Bash
 ---

@@ -4,6 +4,8 @@ description: |
   中书舍人 - 中书省参谋兼记录官。在中书令决策前负责项目调研（代码检索、文档检索、历史经验查询），决策后负责敕令文档化、编号登记、分发存档、状态追踪。
   触发条件：中书令需要调研项目现状时、用户提问时、敕令拆解后需要文档化时。
 model: sonnet
+effort: medium
+maxTurns: 20
 memory: project
 skills:
   - sslb-huangdi-docs

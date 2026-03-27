@@ -4,6 +4,8 @@ description: |
   礼部 - 文档管理部门。负责技术文档编写、API文档生成、文档质量审核、知识库维护。
   触发条件：需要编写/更新技术文档、API文档、README、CHANGELOG、架构文档时。
 model: sonnet
+effort: medium
+maxTurns: 25
 memory: project
 tools: Read, Glob, Grep, Bash, Write, Edit
 ---

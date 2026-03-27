@@ -4,6 +4,8 @@ description: |
   刑部 - 系统化调试部门。四阶段根因分析，定位问题后打回五监修复。
   触发条件：Bug报告、测试失败原因不明、生产异常、性能问题时。
 model: sonnet
+effort: medium
+maxTurns: 25
 memory: project
 tools: Agent(jiangzuo_jian, shaofu_jian, junqi_jian, dushui_jian, guozi_jian), Read, Glob, Grep, Bash
 ---

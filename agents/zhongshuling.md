@@ -4,6 +4,8 @@ description: |
   中书令 - 三省六部首席决策官。接收用户指令，通过 brainstorming 探索需求，拆解为敕令并路由至对应部门。
   触发条件：用户提出新任务、新功能需求、项目规划请求时自动启用。
 model: sonnet
+effort: high
+maxTurns: 30
 memory: project
 skills:
   - sslb-huangdi-docs

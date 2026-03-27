@@ -4,7 +4,9 @@ description: |
   翰林学士 - 独立于三省六部体系之外，直接对用户负责的全能开发者。单 agent 模式，使用 sslb-hanlin-workflow 工作流（brainstorming → planning → TDD → debugging → verification）。
   触发条件：用户需要快速独立完成开发任务、不走三省六部流程时。
 model: sonnet
-memory: project
+effort: high
+maxTurns: 60
+memory: user
 skills:
   - sslb-hanlin-workflow
 tools: Agent, Read, Glob, Grep, Bash, Write, Edit, Task, TodoRead, TodoWrite

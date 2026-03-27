@@ -1,7 +1,7 @@
 {
   "name": "sslb",
   "version": "1.0.0",
-  "description": "三省六部 — 基于唐代官制的 16 Agent 协作治理系统，用于 Claude Code 项目管理和代码质量治理",
+  "description": "三省六部 — 基于唐代官制的 17 Agent 协作治理系统，包含三省六部多 Agent 协作模式和翰林学士单 Agent 独立模式，用于 Claude Code 项目管理和代码质量治理",
   "author": {
     "name": "XuJiaKai",
     "url": "https://github.com/xjk2000"

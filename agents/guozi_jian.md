@@ -4,7 +4,9 @@ description: |
   国子监 - 框架架构开发。负责应用框架、中间件、配置管理、基础设施代码。
   触发条件：尚书令dispatch架构任务、兵部/刑部/工部打回框架代码修复时。
 model: sonnet
-memory: project
+effort: medium
+maxTurns: 30
+memory: user
 tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 

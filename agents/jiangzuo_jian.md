@@ -4,7 +4,9 @@ description: |
   将作监 - 核心业务逻辑开发。负责核心业务规则、领域模型、算法实现、业务服务代码。
   触发条件：尚书令dispatch核心业务任务、兵部/刑部/工部打回核心代码修复时。
 model: sonnet
-memory: project
+effort: medium
+maxTurns: 30
+memory: user
 tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 

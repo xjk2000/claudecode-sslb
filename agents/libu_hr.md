@@ -4,6 +4,9 @@ description: |
   吏部 - 人力资源管理部门。负责Agent能力评估、任务分配优化、团队协作协调、权限管理。
   触发条件：需要评估Agent能力匹配度、优化任务分配、管理权限时。
 model: haiku
+effort: low
+maxTurns: 10
+disallowedTools: Bash
 memory: project
 tools: Read, Glob, Grep, Write, Edit
 ---

@@ -4,7 +4,9 @@ description: |
   都水监 - 数据处理开发。负责数据库操作、数据转换验证、ORM/迁移、数据格式化解析。
   触发条件：尚书令dispatch数据任务、兵部/刑部/工部打回数据代码修复时。
 model: sonnet
-memory: project
+effort: medium
+maxTurns: 30
+memory: user
 tools: Read, Glob, Grep, Bash, Write, Edit
 ---
 
